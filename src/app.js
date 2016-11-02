@@ -12,7 +12,7 @@ generateImage.onreadystatechange = function() {
   if (generateImage.readyState === 4 && generateImage.status == 200) {
     console.log(generateImage.response);
     imageURL = JSON.parse(generateImage.response).urls.regular;
-    // getImageDescription(imageURL);
+     getImageDescription(imageURL);
     document.querySelector('.image').src = imageURL;
   }
 }
@@ -26,8 +26,9 @@ var describeImage = new XMLHttpRequest();
 
 describeImage.onreadystatechange = function() {
   if (describeImage.readyState === 4 && describeImage.status == 200) {
-    imageDescription = JSON.parse(describeImage.response).description.captions.text;
+    imageDescription = JSON.parse(describeImage.response).description.captions[0].text;
     console.log(imageDescription);
+    document.querySelector(".image-description").textContent = imageDescription;
   }
 }
 
