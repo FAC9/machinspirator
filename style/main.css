@@ -27,12 +27,14 @@ html, body {
   background: none;
   border: 1px black solid;
   min-width: 120px;
+  outline: none;
 }
 .imageContainer {
   margin: auto;
   margin-top: 2rem;
   /*border: 1px solid;*/
-  width: 40%;
+  width: 80%;
+  max-width: 500px;
 }
 
 .image {
