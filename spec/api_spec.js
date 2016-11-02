@@ -1,7 +1,3 @@
-QUnit.test( "true returns true", function(assert) {
-  assert.equal(true, true);
-});
-
 QUnit.test( "should have a div with class imageContainer", function(assert) {
   assert.equal(document.querySelector('.imageContainer').tagName, 'DIV');
 });
