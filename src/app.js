@@ -1,4 +1,4 @@
-var button = document.querySelector('.generateImageButton');
+var button = document.querySelector('.button');
 var imageURL;
 //
 // button.onclick = function() {
@@ -10,8 +10,9 @@ var generateImage = new XMLHttpRequest();
 
 generateImage.onreadystatechange = function() {
   if (generateImage.readyState === 4 && generateImage.status == 200) {
+    console.log(generateImage.response);
     imageURL = JSON.parse(generateImage.response).urls.regular;
-    document.querySelector('.imageContainer').innerHTML = '<img src="' + imageURL + '"/>';
+    document.querySelector('.image').src = imageURL;
   }
 }
 
