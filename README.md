@@ -12,7 +12,7 @@
 Use a machine learning tool to interpret a given image, then request a song / video / article based on the image content.
 
 ## APIs we use
-- Random image generator (e.g. [Unsplash It](https://unsplash.it/)
+- Random image generator (e.g. [Unsplash It](https://unsplash.it/))
 - Image recognition (e.g. [Google Vision](https://cloud.google.com/vision/docs/))
 - Optional: Spotify, YouTube, Guardian etc.
 
@@ -20,3 +20,9 @@ Use a machine learning tool to interpret a given image, then request a song / vi
 - (1) One pair implements image APIs, the other sets up HTML skeleton
 - (2) One pair styles the page, the other implements song / video API
 - both pairs implement some tests
+
+## Setup
+1. Install @google-cloud/vision with npm:
+```
+     npm install --save @google-cloud/vision
+```
