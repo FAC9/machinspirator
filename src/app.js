@@ -57,7 +57,7 @@ var generateTune = new XMLHttpRequest();
 generateTune.onreadystatechange = function() {
   if (generateTune.readyState === 4 && generateTune.status == 200) {
     var songTitle = JSON.parse(generateTune.response).results[2].title;
-    document.querySelector(".youtube-link").innerHTML = songTitle;
+    document.querySelector(".youtube-link").innerHTML = '<i class="fa fa-fw fa-music" aria-hidden="true"></i> ' + songTitle;
     //console.log(JSON.parse(generateTune.response).results[0].resource_url);
     // newURL = JSON.parse(generateTune.response).results[0].resource_url;
     // generateTune2.open('GET', newURL, true);
@@ -66,6 +66,7 @@ generateTune.onreadystatechange = function() {
 }
 
 loadTuneButton.onclick = function() {
+  console.log('button clicked')
   generateTune.open('GET', "https://api.discogs.com/database/search?release_title=" + imageTags[0] + "&key=" + discogsKey + "&secret=" + discogsSecret, true);
   generateTune.send();
 };
