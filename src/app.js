@@ -116,6 +116,6 @@ function updateDOM () {
   document.querySelector('.image').alt = imageDescription;
   var confidenceIcon = document.createElement('div');
   confidenceIcon.classList.add('confidence-icon');
-  confidenceIcon.classList.add(imageConfidence < 0.4 ? 'red' : imageConfidence < 0.8 ? 'orange' : 'green');
+  confidenceIcon.classList.add(imageConfidence < 0.4 ? 'red' : imageConfidence < 0.7 ? 'orange' : 'green');
   document.querySelector(".image-description").innerHTML = confidenceIcon.outerHTML + imageDescription;
 }
