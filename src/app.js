@@ -1,10 +1,5 @@
 var button = document.querySelector('.button');
 var imageURL, imageDescription;
-//
-// button.onclick = function() {
-//   image = "https://source.unsplash.com/random";
-//   document.querySelector('.image').src = image;
-// };
 
 var generateImage = new XMLHttpRequest();
 
