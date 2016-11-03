@@ -1,9 +1,6 @@
 var generateImageButton = document.querySelector('#generate-image-button');
-
-var loadTuneButton = document.querySelector('#load-tune-button');
-var guardianButton = document.querySelector('#guardian-button');
 var loading = document.querySelector(".loading");
-var imageURL, imageDescription, imageTags, generateTune2, newURL, guardianNews, imageConfidence;
+var imageURL, imageDescription, imageTags, newURL, guardianNews, imageConfidence, callbacks, songTitle;
 
 var generateImage = new XMLHttpRequest();
 
@@ -27,13 +24,13 @@ describeImage.onreadystatechange = function() {
   if (describeImage.readyState === 4 && describeImage.status == 200) {
     imageDescription = JSON.parse(describeImage.response).description.captions[0].text;
     imageConfidence = JSON.parse(describeImage.response).description.captions[0].confidence;
-    console.log(imageConfidence)
     imageTags = JSON.parse(describeImage.response).description.tags;
     imageTags = (imageTags.length > 5 ? imageTags.slice(0,5) : imageTags);
     document.querySelector(".image-description").textContent = imageDescription;
     document.querySelector(".image-tags").textContent = imageTags.join(" ");
-    updateDOM();
-    hideLoading();
+    callbacks = 2;
+    getGuardianArticles();
+    getTune();
   }
 }
 
@@ -47,48 +44,42 @@ var getImageDescription = function (url) {
 
 var generateTune = new XMLHttpRequest();
 
-// generateTune2 = new XMLHttpRequest();
-// generateTune2.onreadystatechange = function () {
-//   if (generateTune2.readyState === 4 && generateTune2.status == 200) {
-//     var youtubeURL = JSON.parse(generateTune2.response).videos[0].uri;
-//     var youtubeTitle = JSON.parse(generateTune2.response).videos[0].title;
-//     document.querySelector(".youtube-link").innerHTML = '<a href="' + youtubeURL + '" target="_blank">' + youtubeTitle + '</a>';
-//   }
-// }
-
 generateTune.onreadystatechange = function() {
   if (generateTune.readyState === 4 && generateTune.status == 200) {
-    var songTitle = JSON.parse(generateTune.response).results[2].title;
-    document.querySelector(".youtube-link").innerHTML = '<i class="fa fa-fw fa-music" aria-hidden="true"></i> ' + songTitle;
-    //console.log(JSON.parse(generateTune.response).results[0].resource_url);
-    // newURL = JSON.parse(generateTune.response).results[0].resource_url;
-    // generateTune2.open('GET', newURL, true);
-    // generateTune2.send();
+    songTitle = JSON.parse(generateTune.response).results[2].title;
+    callbacks--;
+    if (callbacks === 0) {
+      onRequestComplete();
+    }
   }
 }
 
-loadTuneButton.onclick = function() {
-  console.log('button clicked')
+function getTune () {
   generateTune.open('GET', "https://api.discogs.com/database/search?release_title=" + imageTags[0] + "&key=" + discogsKey + "&secret=" + discogsSecret, true);
   generateTune.send();
 };
 
 var generateGuardian = new XMLHttpRequest();
 
-guardianButton.onclick = function(){
+function getGuardianArticles () {
   generateGuardian.open('get',"http://content.guardianapis.com/search?q="+imageTags[0]+"%20"+imageTags[1]+"%20"+imageTags[2]+"&api-key="+guardianKey);
   generateGuardian.send();
-};
+}
 
 generateGuardian.onreadystatechange = function(){
   if (generateGuardian.readyState === 4 && generateGuardian.status === 200){
     guardianNews = JSON.parse(generateGuardian.response).response.results;
     createGuardianList();
+    callbacks--;
+    if (callbacks === 0) {
+      onRequestComplete();
+    }
   }
 };
 
 function createGuardianList(){
   var list = document.createElement('ul');
+  console.log(guardianNews);
   for (var i = 0; i < (guardianNews.length < 3 ? guardianNews.length : 3); i++)
   {
     var listItem = document.createElement('li');
@@ -107,6 +98,11 @@ function hideLoading () {
   loading.style.display = 'none';
 }
 
+function onRequestComplete () {
+  updateDOM();
+  hideLoading();
+}
+
 function updateImage () {
   document.querySelector('.image').src = imageURL;
 }
@@ -118,4 +114,5 @@ function updateDOM () {
   confidenceIcon.classList.add('confidence-icon');
   confidenceIcon.classList.add(imageConfidence < 0.4 ? 'red' : imageConfidence < 0.7 ? 'orange' : 'green');
   document.querySelector(".image-description").innerHTML = confidenceIcon.outerHTML + imageDescription;
+  document.querySelector(".youtube-link").innerHTML = '<i class="fa fa-fw fa-music" aria-hidden="true"></i> ' + songTitle;
 }
