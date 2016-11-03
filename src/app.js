@@ -3,9 +3,9 @@
   var loading = document.querySelector(".loading");
   var imageURL, imageDescription, imageTags, imageTagsFiltered, newURL, guardianNews, imageConfidence, callbacks, songTitle;
 
-  var generateImage = new XMLHttpRequest();
-
   generateImageButton.onclick = generateData;
+
+  var generateImage = new XMLHttpRequest();
 
   generateImage.onreadystatechange = function() {
     if (generateImage.readyState === 4 && generateImage.status == 200) {
@@ -16,7 +16,7 @@
   }
 
   function generateData () {
-    generateImage.open('GET', "https://api.unsplash.com/photos/random?client_id=" + unsplashKey, true);
+    generateImage.open('GET', "https://api.unsplash.com/photos/random?client_id=" + unsplashKey);
     showLoading();
     generateImage.send();
   };
@@ -25,10 +25,11 @@
 
   describeImage.onreadystatechange = function() {
     if (describeImage.readyState === 4 && describeImage.status == 200) {
-      imageDescription = JSON.parse(describeImage.response).description.captions[0].text;
-      imageConfidence = JSON.parse(describeImage.response).description.captions[0].confidence;
-      imageTags = JSON.parse(describeImage.response).description.tags;
-      imageTags = (imageTags.length > 5 ? imageTags.slice(0,5) : imageTags);
+      var data = JSON.parse(describeImage.response).description;
+      imageDescription = data.captions[0].text;
+      imageConfidence = data.captions[0].confidence;
+      imageTags = data.tags;
+      imageTags = imageTags.length > 5 ? imageTags.slice(0,5) : imageTags;
       imageTagsFiltered = imageTags.filter(x => x !== 'outdoor' && x !== 'indoor');
       document.querySelector(".image-description").textContent = imageDescription;
       callbacks = 2;
@@ -60,7 +61,7 @@
   function getTune () {
     generateTune.open('GET', "https://api.discogs.com/database/search?release_title=" + imageTagsFiltered[0] + "&key=" + discogsKey + "&secret=" + discogsSecret, true);
     generateTune.send();
-  };
+  }
 
   var generateGuardian = new XMLHttpRequest();
 
@@ -82,7 +83,6 @@
 
   function createGuardianList(){
     var list = document.createElement('ul');
-    console.log(guardianNews);
     for (var i = 0; i < (guardianNews.length < 3 ? guardianNews.length : 3); i++)
     {
       var listItem = document.createElement('li');
@@ -110,14 +110,19 @@
     document.querySelector('.image').src = imageURL;
   }
 
-  function updateDOM () {
-    document.querySelector('.image').src = imageURL;
-    document.querySelector('.image').alt = imageDescription;
-    document.querySelector(".image-tags").innerHTML = imageTags.join(" - ");
+  function createConfidenceIcon () {
     var confidenceIcon = document.createElement('div');
     confidenceIcon.classList.add('confidence-icon');
     confidenceIcon.classList.add(imageConfidence < 0.4 ? 'red' : imageConfidence < 0.7 ? 'orange' : 'green');
     document.querySelector(".image-description").innerHTML = confidenceIcon.outerHTML + imageDescription;
-    document.querySelector(".youtube-link").innerHTML = '<i class="fa fa-fw fa-music" aria-hidden="true"></i> ' + songTitle;
   }
+
+  function updateDOM () {
+    document.querySelector('.image').src = imageURL;
+    document.querySelector('.image').alt = imageDescription;
+    document.querySelector(".image-tags").innerHTML = imageTags.join(" - ");
+    document.querySelector(".youtube-link").innerHTML = '<i class="fa fa-fw fa-music" aria-hidden="true"></i> ' + songTitle;
+    createConfidenceIcon();
+  }
+
 }());

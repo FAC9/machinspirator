@@ -24,8 +24,8 @@ html, body {
   font-family: 'Dosis', sans-serif;
   font-size: 1.5rem;
   margin: 0.5rem;
-  cursor:pointer;
-  background: black;
+  cursor: pointer;
+  background-color: black;
   color: white;
   border: 1px black solid;
   width: 120px;
@@ -62,7 +62,8 @@ html, body {
   color: #888888;
 }
 
-.articles, .youtube-link {
+.articles,
+.youtube-link {
   font-size: 1.5rem;
 }
 
@@ -72,18 +73,18 @@ html, body {
 
 .article-item {
   list-style: none;
-  cursor: pointer;
   padding: 10px 0;
-  opacity: 1;
-}
 
-.article-item:hover {
-  opacity: 0.5;
 }
 
 .article-item a {
   text-decoration: none;
   color: inherit;
+  opacity: 1;
+}
+
+.article-item a:hover {
+  opacity: 0.5;
 }
 
 .confidence-icon {
@@ -119,9 +120,9 @@ html, body {
   z-index: 5;
 }
 
-.loading-icon {
+/*.loading-icon {
   font-size: 3rem;
-}
+}*/
 
 .loading-text {
   font-size: 2rem;
