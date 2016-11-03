@@ -96,7 +96,7 @@ function createGuardianList(){
     listItem.innerHTML = "<i class=\"fa fa-fw fa-book\" aria-hidden=\"true\"></i> <a href=" + guardianNews[i].webUrl + " target='_blank'>" + guardianNews[i].webTitle + "</a>";
     list.appendChild(listItem);
   }
-  document.querySelector(".articles").appendChild(list);
+  document.querySelector(".articles").innerHTML = list.outerHTML;
 }
 
 function showLoading () {
