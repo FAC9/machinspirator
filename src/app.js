@@ -74,24 +74,28 @@ loadTuneButton.onclick = function() {
 var generateGuardian = new XMLHttpRequest();
 
 guardianButton.onclick = function(){
-  //http://content.guardianapis.com/search?q=water%20bird&api-key=test
   generateGuardian.open('get',"http://content.guardianapis.com/search?q="+imageTags[0]+"%20"+imageTags[1]+"%20"+imageTags[2]+"&api-key="+guardianKey);
   generateGuardian.send();
 };
 
 generateGuardian.onreadystatechange = function(){
   if (generateGuardian.readyState === 4 && generateGuardian.status === 200){
-    guardianNews = JSON.parse(generateGuardian.response);
-    var res = "";
-    for (var i=0; i< (guardianNews.response.results.length < 3 ? guardianNews.response.results.length :3);i++)
-    {
-      res += "<p>"+guardianNews.response.results[i].webTitle;//+"</p>";
-      res += "<span><a href=\""+guardianNews.response.results[i].webUrl+"\">link</a></span></p>";
-    }
-    console.log(JSON.parse(generateGuardian.response).response.results);
-    document.querySelector(".articles").innerHTML = res;
+    guardianNews = JSON.parse(generateGuardian.response).response.results;
+    createGuardianList();
   }
 };
+
+function createGuardianList(){
+  var list = document.createElement('ul');
+  for (var i = 0; i < (guardianNews.length < 3 ? guardianNews.length : 3); i++)
+  {
+    var listItem = document.createElement('li');
+    listItem.classList.add("article-item");
+    listItem.innerHTML = "<a href=" + guardianNews[i].webUrl + ">" + guardianNews[i].webTitle + "</a>";
+    list.appendChild(listItem);
+  }
+  document.querySelector(".articles").appendChild(list);
+}
 
 function showLoading () {
   loading.style.display = 'block';

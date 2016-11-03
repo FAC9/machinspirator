@@ -53,6 +53,26 @@ html, body {
   padding: 0 10px;
 }
 
+.articles ul {
+  padding: 0;
+}
+
+.article-item {
+  list-style: none;
+  cursor: pointer;
+  padding: 10px 0;
+  opacity: 1;
+}
+
+.article-item:hover {
+  opacity: 0.5;
+}
+
+.article-item a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .loading {
   display: none;
   text-align: center;
