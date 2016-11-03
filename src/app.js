@@ -1,7 +1,7 @@
 (function () {
   var generateImageButton = document.querySelector('#generate-image-button');
   var loading = document.querySelector(".loading");
-  var imageURL, imageDescription, imageTags, imageTagsFiltered, newURL, guardianNews, imageConfidence, callbacks, songTitle;
+  var imageURL, imageDescription, imageTags, imageTagsFiltered, newURL, guardianNews, imageConfidence, callbacks, songTitle, songURL;
 
   var generateImage = new XMLHttpRequest();
 
@@ -50,6 +50,7 @@
   generateTune.onreadystatechange = function() {
     if (generateTune.readyState === 4 && generateTune.status == 200) {
       songTitle = JSON.parse(generateTune.response).results[2].title;
+      songURL = "https://www.youtube.com/results?search_query=" + songTitle.replace(/[\s-]+/g,'+');
       callbacks--;
       if (callbacks === 0) {
         onRequestComplete();
@@ -58,7 +59,9 @@
   }
 
   function getTune () {
-    generateTune.open('GET', "https://api.discogs.com/database/search?release_title=" + imageTagsFiltered[0] + "&key=" + discogsKey + "&secret=" + discogsSecret, true);
+    var selectedTag = imageTagsFiltered[Math.floor(Math.random() * imageTagsFiltered.length)];
+    console.log(selectedTag);
+    generateTune.open('GET', "https://api.discogs.com/database/search?track=" + selectedTag + "&key=" + discogsKey + "&secret=" + discogsSecret, true);
     generateTune.send();
   };
 
@@ -82,7 +85,6 @@
 
   function createGuardianList(){
     var list = document.createElement('ul');
-    console.log(guardianNews);
     for (var i = 0; i < (guardianNews.length < 3 ? guardianNews.length : 3); i++)
     {
       var listItem = document.createElement('li');
@@ -118,6 +120,7 @@
     confidenceIcon.classList.add('confidence-icon');
     confidenceIcon.classList.add(imageConfidence < 0.4 ? 'red' : imageConfidence < 0.7 ? 'orange' : 'green');
     document.querySelector(".image-description").innerHTML = confidenceIcon.outerHTML + imageDescription;
-    document.querySelector(".youtube-link").innerHTML = '<i class="fa fa-fw fa-music" aria-hidden="true"></i> ' + songTitle;
+    var foontAwesomePlay = '<i class="fa fa-fw fa-music" aria-hidden="true"></i>';
+    document.querySelector(".youtube-link").innerHTML = foontAwesomePlay + '<a href="' + songURL + '" target="_blank"> ' + songTitle + '</a>';
   }
 }());
