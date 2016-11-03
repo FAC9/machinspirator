@@ -1,7 +1,7 @@
 (function () {
   var generateImageButton = document.querySelector('#generate-image-button');
   var loading = document.querySelector(".loading");
-  var imageURL, imageDescription, imageTags, newURL, guardianNews, imageConfidence, callbacks, songTitle;
+  var imageURL, imageDescription, imageTags, imageTagsFiltered, newURL, guardianNews, imageConfidence, callbacks, songTitle;
 
   var generateImage = new XMLHttpRequest();
 
@@ -29,6 +29,7 @@
       imageConfidence = JSON.parse(describeImage.response).description.captions[0].confidence;
       imageTags = JSON.parse(describeImage.response).description.tags;
       imageTags = (imageTags.length > 5 ? imageTags.slice(0,5) : imageTags);
+      imageTagsFiltered = imageTags.filter(x => x !== 'outdoor' && x !== 'indoor');
       document.querySelector(".image-description").textContent = imageDescription;
       callbacks = 2;
       getGuardianArticles();
@@ -57,14 +58,14 @@
   }
 
   function getTune () {
-    generateTune.open('GET', "https://api.discogs.com/database/search?release_title=" + imageTags[1] + "&key=" + discogsKey + "&secret=" + discogsSecret, true);
+    generateTune.open('GET', "https://api.discogs.com/database/search?release_title=" + imageTagsFiltered[0] + "&key=" + discogsKey + "&secret=" + discogsSecret, true);
     generateTune.send();
   };
 
   var generateGuardian = new XMLHttpRequest();
 
   function getGuardianArticles () {
-    generateGuardian.open('get',"http://content.guardianapis.com/search?q="+imageTags[0]+"%20"+imageTags[1]+"%20"+imageTags[2]+"&api-key="+guardianKey);
+    generateGuardian.open('get',"http://content.guardianapis.com/search?q="+imageTagsFiltered[0]+"%20"+imageTagsFiltered[1]+"%20"+imageTagsFiltered[2]+"&api-key="+guardianKey);
     generateGuardian.send();
   }
 
