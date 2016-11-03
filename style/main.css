@@ -73,6 +73,26 @@ html, body {
   color: inherit;
 }
 
+.confidence-icon {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+.green {
+  background-color: green;
+}
+
+.red {
+  background-color: red;
+}
+
+.orange {
+  background-color: orange;
+}
+
 .loading {
   display: none;
   text-align: center;
