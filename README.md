@@ -14,9 +14,25 @@ Use a machine learning tool to interpret a given image, then request a song / vi
 ## APIs we use
 - Random image generator (e.g. [Unsplash It](https://unsplash.it/))
 - Image recognition (e.g. [Google Vision](https://cloud.google.com/vision/docs/))
-- Optional: Spotify, YouTube, Guardian etc.
+- News [Guardian API](http://open-platform.theguardian.com/)
+- Music API [discogs API](https://www.discogs.com/developers/)
 
-## Task allocation
-- (1) One pair implements image APIs, the other sets up HTML skeleton
-- (2) One pair styles the page, the other implements song / video API
-- both pairs implement some tests
+### Wednesday
+- initial readme
+- add random image generation
+- add image recognition
+- add QUnit and initial tests
+
+### Thursday
+- add Guardian API
+- add Discogs API
+- styling 
+- more tests
+- (if we have time...Refactor and hide our variables)
+
+## Problems encountered
+
+- some cool APIs require a node backend
+- some APIs require URI registration
+- finding the right API ( e.g.: an api that can search songs,films,..etc. based on keywords)
+- chaining HMLHttpRequest
