@@ -7,10 +7,12 @@ html, body {
 }
 
 .header {
+  position: relative;
   background-color:  rgb(227, 227, 227);
   text-align: center;
   width: 100%;
   padding: 10px 0;
+  z-index: 10;
 }
 
 .content {
@@ -37,15 +39,36 @@ html, body {
 
 .image-container {
   margin: 2rem auto;
-  max-width: 800px;
 }
 
 .image {
-  max-width:100%;
+  max-width:800px;
+  max-height:600px;
 }
 
 .image-description {
   font-size: 2rem;
   font-weight: bold;
   padding: 0 10px;
+}
+
+.loading {
+  display: none;
+  text-align: center;
+  padding-top: 16rem;
+  position: absolute;
+  background-color: #EEEEEE;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 5;
+}
+
+.loading-icon {
+  font-size: 3rem;
+}
+
+.loading-text {
+  font-size: 2rem;
 }

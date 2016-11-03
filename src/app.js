@@ -1,5 +1,6 @@
 var generateImageButton = document.querySelector('#generate-image-button');
 var guardianButton = document.querySelector('#guardianButton');
+var loading = document.querySelector(".loading");
 var imageURL, imageDescription,imageTags,guardianNews;
 
 var generateImage = new XMLHttpRequest();
@@ -7,12 +8,14 @@ var generateImage = new XMLHttpRequest();
 generateImage.onreadystatechange = function() {
   if (generateImage.readyState === 4 && generateImage.status == 200) {
     imageURL = JSON.parse(generateImage.response).urls.regular;
+    updateImage(imageURL);
     getImageDescription(imageURL);
   }
 }
 
 generateImageButton.onclick = function() {
   generateImage.open('GET', "https://api.unsplash.com/photos/random?client_id=" + unsplashKey, true);
+  showLoading();
   generateImage.send();
 };
 
@@ -21,11 +24,11 @@ var describeImage = new XMLHttpRequest();
 describeImage.onreadystatechange = function() {
   if (describeImage.readyState === 4 && describeImage.status == 200) {
     imageDescription = JSON.parse(describeImage.response).description.captions[0].text;
-    console.log(JSON.parse(describeImage.response).description.tags);
     imageTags = JSON.parse(describeImage.response).description.tags;
     document.querySelector(".image-description").textContent = imageDescription;
     document.querySelector(".image-tags").textContent = imageTags;
     updateDOM();
+    hideLoading();
   }
 }
 
@@ -59,7 +62,20 @@ generateGuardian.onreadystatechange = function(){
   }
 };
 
-var updateDOM = function () {
+function showLoading () {
+  loading.style.display = 'block';
+}
+
+function hideLoading () {
+  loading.style.display = 'none';
+}
+
+function updateImage () {
   document.querySelector('.image').src = imageURL;
+}
+
+function updateDOM () {
+  document.querySelector('.image').src = imageURL;
+  document.querySelector('.image').alt = imageDescription;
   document.querySelector(".image-description").textContent = imageDescription;
 }
