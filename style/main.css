@@ -15,13 +15,14 @@ html, body {
 }
 
 .content {
-  margin-top: 3rem;
+  margin-top: 1rem;
   text-align: center;
   width: 100%;
 }
 
 .button {
   font-family: 'Dosis', sans-serif;
+  font-size: 1.5rem;
   margin: 0.5rem;
   cursor:pointer;
   background: black;
@@ -41,7 +42,7 @@ html, body {
 
 .image-container {
   margin: 2rem auto;
-  max-width: 100%;
+  max-width: 90%;
 }
 
 .image {
@@ -54,6 +55,15 @@ html, body {
   font-size: 2rem;
   font-weight: bold;
   padding: 0 10px;
+}
+
+.image-tags {
+  font-size: 1.5rem;
+  color: #888888;
+}
+
+.articles, .youtube-link {
+  font-size: 1.5rem;
 }
 
 .articles ul {
