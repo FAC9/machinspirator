@@ -27,6 +27,8 @@ Use a machine learning tool to interpret a given image, then request a song / vi
 - add Guardian API
 - add Discogs API
 - styling 
+- mobile design
+- add animation
 - more tests
 - (if we have time...Refactor and hide our variables)
 
