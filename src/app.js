@@ -3,7 +3,7 @@ var generateImageButton = document.querySelector('#generate-image-button');
 var loadTuneButton = document.querySelector('#load-tune-button');
 var guardianButton = document.querySelector('#guardian-button');
 var loading = document.querySelector(".loading");
-var imageURL, imageDescription, imageTags, generateTune2, newURL, guardianNews;
+var imageURL, imageDescription, imageTags, generateTune2, newURL, guardianNews, imageConfidence;
 
 var generateImage = new XMLHttpRequest();
 
@@ -26,6 +26,8 @@ var describeImage = new XMLHttpRequest();
 describeImage.onreadystatechange = function() {
   if (describeImage.readyState === 4 && describeImage.status == 200) {
     imageDescription = JSON.parse(describeImage.response).description.captions[0].text;
+    imageConfidence = JSON.parse(describeImage.response).description.captions[0].confidence;
+    console.log(imageConfidence)
     imageTags = JSON.parse(describeImage.response).description.tags;
     imageTags = (imageTags.length > 5 ? imageTags.slice(0,5) : imageTags);
     document.querySelector(".image-description").textContent = imageDescription;
@@ -112,5 +114,8 @@ function updateImage () {
 function updateDOM () {
   document.querySelector('.image').src = imageURL;
   document.querySelector('.image').alt = imageDescription;
-  document.querySelector(".image-description").textContent = imageDescription;
+  var confidenceIcon = document.createElement('div');
+  confidenceIcon.classList.add('confidence-icon');
+  confidenceIcon.classList.add(imageConfidence < 0.4 ? 'red' : imageConfidence < 0.8 ? 'orange' : 'green');
+  document.querySelector(".image-description").innerHTML = confidenceIcon.outerHTML + imageDescription;
 }
