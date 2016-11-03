@@ -30,7 +30,6 @@
       imageTags = JSON.parse(describeImage.response).description.tags;
       imageTags = (imageTags.length > 5 ? imageTags.slice(0,5) : imageTags);
       document.querySelector(".image-description").textContent = imageDescription;
-      document.querySelector(".image-tags").textContent = imageTags.join(" ");
       callbacks = 2;
       getGuardianArticles();
       getTune();
