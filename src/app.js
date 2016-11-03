@@ -5,10 +5,8 @@ var generateImage = new XMLHttpRequest();
 
 generateImage.onreadystatechange = function() {
   if (generateImage.readyState === 4 && generateImage.status == 200) {
-    console.log(generateImage.response);
     imageURL = JSON.parse(generateImage.response).urls.regular;
-     getImageDescription(imageURL);
-    document.querySelector('.image').src = imageURL;
+    getImageDescription(imageURL);
   }
 }
 
@@ -22,8 +20,7 @@ var describeImage = new XMLHttpRequest();
 describeImage.onreadystatechange = function() {
   if (describeImage.readyState === 4 && describeImage.status == 200) {
     imageDescription = JSON.parse(describeImage.response).description.captions[0].text;
-    console.log(imageDescription);
-    document.querySelector(".image-description").textContent = imageDescription;
+    updateDOM();
   }
 }
 
@@ -33,4 +30,9 @@ var getImageDescription = function (url) {
   describeImage.setRequestHeader("Ocp-Apim-Subscription-Key", computerVisionKey);
   var body = JSON.stringify({url : url});
   describeImage.send(body);
+}
+
+var updateDOM = function () {
+  document.querySelector('.image').src = imageURL;
+  document.querySelector(".image-description").textContent = imageDescription;
 }
