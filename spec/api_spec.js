@@ -1,5 +1,5 @@
-QUnit.test( "should have a div with class imageContainer", function(assert) {
-  assert.equal(document.querySelector('.imageContainer').tagName, 'DIV');
+QUnit.test( "should have a div with class image-container", function(assert) {
+  assert.equal(document.querySelector('.image-container').tagName, 'DIV');
 });
 
 QUnit.test( "should have 3 buttons with class button", function(assert) {
@@ -12,7 +12,7 @@ QUnit.test( "no image is sourced before Generate image button clicked", function
 
 QUnit.test( "clicking Generate image button generates image", function(assert) {
   var done = assert.async();
-  document.getElementById("generateImageButton").click();
+  document.getElementById("generate-image-button").click();
   window.setTimeout(function() {
     assert.ok(document.querySelector('.image').getAttribute('src'));
     done();

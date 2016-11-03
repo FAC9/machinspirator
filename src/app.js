@@ -1,20 +1,13 @@
-var generateImageButton = document.querySelector('#generateImageButton');
+var generateImageButton = document.querySelector('#generate-image-button');
 var guardianButton = document.querySelector('#guardianButton');
 var imageURL, imageDescription,imageTags,guardianNews;
-//
-// button.onclick = function() {
-//   image = "https://source.unsplash.com/random";
-//   document.querySelector('.image').src = image;
-// };
 
 var generateImage = new XMLHttpRequest();
 
 generateImage.onreadystatechange = function() {
   if (generateImage.readyState === 4 && generateImage.status == 200) {
-  //  console.log(generateImage.response);
     imageURL = JSON.parse(generateImage.response).urls.regular;
-     getImageDescription(imageURL);
-    document.querySelector('.image').src = imageURL;
+    getImageDescription(imageURL);
   }
 }
 
@@ -32,6 +25,7 @@ describeImage.onreadystatechange = function() {
     imageTags = JSON.parse(describeImage.response).description.tags;
     document.querySelector(".image-description").textContent = imageDescription;
     document.querySelector(".image-tags").textContent = imageTags;
+    updateDOM();
   }
 }
 
@@ -64,3 +58,8 @@ generateGuardian.onreadystatechange = function(){
     document.querySelector(".articles").innerHTML = res;
   }
 };
+
+var updateDOM = function () {
+  document.querySelector('.image').src = imageURL;
+  document.querySelector(".image-description").textContent = imageDescription;
+}
