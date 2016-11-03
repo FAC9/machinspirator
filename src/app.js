@@ -1,5 +1,5 @@
 var generateImageButton = document.querySelector('#generate-image-button');
-var guardianButton = document.querySelector('#guardianButton');
+var guardianButton = document.querySelector('#guardian-button');
 var loading = document.querySelector(".loading");
 var imageURL, imageDescription,imageTags,guardianNews;
 
