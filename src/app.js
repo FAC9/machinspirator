@@ -25,8 +25,11 @@ describeImage.onreadystatechange = function() {
   if (describeImage.readyState === 4 && describeImage.status == 200) {
     imageDescription = JSON.parse(describeImage.response).description.captions[0].text;
     imageTags = JSON.parse(describeImage.response).description.tags;
+
+    imageTags = (imageTags.length > 5 ? imageTags.slice(0,5) : imageTags);
+    console.log(imageTags,typeof imageTags);
     document.querySelector(".image-description").textContent = imageDescription;
-    document.querySelector(".image-tags").textContent = imageTags;
+    document.querySelector(".image-tags").textContent = imageTags.join(" ");
     updateDOM();
     hideLoading();
   }
@@ -52,10 +55,10 @@ generateGuardian.onreadystatechange = function(){
   if (generateGuardian.readyState === 4 && generateGuardian.status === 200){
     guardianNews = JSON.parse(generateGuardian.response);
     var res = "";
-    for (var i=0; i< guardianNews.response.results.length;i++)
+    for (var i=0; i< (guardianNews.response.results.length < 3 ? guardianNews.response.results.length :3);i++)
     {
-      res += "<p>"+guardianNews.response.results[i].webTitle+"</p>";
-      res += "<p>"+guardianNews.response.results[i].webUrl+"</p>";
+      res += "<p>"+guardianNews.response.results[i].webTitle;//+"</p>";
+      res += "<span><a href=\""+guardianNews.response.results[i].webUrl+"\">link</a></span></p>";
     }
     console.log(JSON.parse(generateGuardian.response).response.results);
     document.querySelector(".articles").innerHTML = res;
