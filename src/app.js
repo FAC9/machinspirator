@@ -91,7 +91,7 @@ function createGuardianList(){
   {
     var listItem = document.createElement('li');
     listItem.classList.add("article-item");
-    listItem.innerHTML = "<a href=" + guardianNews[i].webUrl + ">" + guardianNews[i].webTitle + "</a>";
+    listItem.innerHTML = "<i class=\"fa fa-fw fa-book\" aria-hidden=\"true\"></i> <a href=" + guardianNews[i].webUrl + " target='_blank'>" + guardianNews[i].webTitle + "</a>";
     list.appendChild(listItem);
   }
   document.querySelector(".articles").appendChild(list);
