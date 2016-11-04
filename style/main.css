@@ -77,13 +77,15 @@ html, body {
 
 }
 
-.article-item a {
+.article-item a,
+.youtube-link a {
   text-decoration: none;
   color: inherit;
   opacity: 1;
 }
 
-.article-item a:hover {
+.article-item a:hover,
+.youtube-link a:hover {
   opacity: 0.5;
 }
 
