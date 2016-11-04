@@ -59,8 +59,7 @@
       tuneResponse = JSON.parse(generateTune.response).message.body.track_list[0];
       songTitle = tuneResponse.track.artist_name + ' - ' + tuneResponse.track.track_name;
       songURL = "https://www.youtube.com/results?search_query=" + songTitle.replace(/[\s-]+/g,'+');
-      callbacks--;
-      if (callbacks === 0) {
+      if (--callbacks === 0) {
         onRequestComplete();
       }
     }
@@ -131,7 +130,7 @@
   function updateDOM () {
     document.querySelector('.image').alt = imageDescription;
     document.querySelector(".image-tags").innerHTML = imageTags.join(" - ");
-    document.querySelector(".youtube-link").innerHTML = '<i class="fa fa-fw fa-music" aria-hidden="true"></i> ' + songTitle;
+//    document.querySelector(".youtube-link").innerHTML = '<i class="fa fa-fw fa-music" aria-hidden="true"></i> ' + songTitle;
     var fontAwesomePlay = '<i class="fa fa-fw fa-music" aria-hidden="true"></i>';
     document.querySelector(".youtube-link").innerHTML = fontAwesomePlay + '<a href="' + songURL + '" target="_blank"> ' + songTitle + '</a>';
 
