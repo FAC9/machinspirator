@@ -4,6 +4,7 @@
 
   var generateImageButton = document.querySelector('#generate-image-button');
   var loading = document.querySelector(".loading");
+  var content = document.querySelector(".content");
   var imageURL, imageDescription, imageTags, imageTagsFiltered, newURL, guardianNews, imageConfidence, callbacks, tuneResponse, songTitle, songURL;
 
   generateImageButton.onclick = generateData;
@@ -20,7 +21,9 @@
 
   function generateData () {
     generateImage.open('GET', "https://api.unsplash.com/photos/random?client_id=" + unsplashKey);
+    window.scrollTo(0, 0);
     showLoading();
+    hideContent();
     generateImage.send();
   };
 
@@ -107,8 +110,17 @@
     loading.style.display = 'none';
   }
 
+  function showContent() {
+    content.style.display = 'block';
+  }
+
+  function hideContent() {
+    content.style.display = 'none';
+  }
+
   function onRequestComplete () {
     updateDOM();
+    showContent();
     hideLoading();
   }
 
