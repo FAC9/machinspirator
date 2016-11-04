@@ -37,4 +37,4 @@ Use a machine learning tool to interpret a given image, then request a song / vi
 - some cool APIs require a node backend
 - some APIs require URI registration
 - finding the right API ( e.g.: an api that can search songs,films,..etc. based on keywords)
-- chaining HMLHttpRequest
+- chaining XMLHttpRequests
