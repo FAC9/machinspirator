@@ -12,10 +12,10 @@
 Use a machine learning tool to interpret a given image, then request a song / video / article based on the image content.
 
 ## APIs we use
-- Random image generator (e.g. [Unsplash It](https://unsplash.it/))
-- Image recognition (e.g. [Google Vision](https://cloud.google.com/vision/docs/))
-- News [Guardian API](http://open-platform.theguardian.com/)
-- Music API [discogs API](https://www.discogs.com/developers/)
+- Random image generator ([Unsplash It](https://unsplash.it/))
+- Image recognition ([Microsoft Computer Vision](https://www.microsoft.com/cognitive-services/en-us/computer-vision-api))
+- News ([Guardian](http://open-platform.theguardian.com/))
+- Song database ([musixmatch](https://developer.musixmatch.com/))
 
 ### Wednesday
 - initial readme
@@ -25,7 +25,7 @@ Use a machine learning tool to interpret a given image, then request a song / vi
 
 ### Thursday
 - add Guardian API
-- add Discogs API
+- add Musixmatch API
 - styling 
 - mobile design
 - add animation
