@@ -65,8 +65,8 @@ html, body {
   font-size: 1.5rem;
 }
 
-.articles ul {
-  padding: 0;
+.articles {
+  padding: 0 10px;
 }
 
 .article-item {
