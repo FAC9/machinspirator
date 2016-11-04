@@ -1,7 +1,3 @@
-QUnit.test( "should have a div with class image-container", function(assert) {
-  assert.equal(document.querySelector('.image-container').tagName, 'DIV');
-});
-
 QUnit.test( "should have GenerateImage button", function(assert) {
   assert.equal(document.querySelector("#generate-image-button").tagName, 'BUTTON');
 });
