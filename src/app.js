@@ -137,7 +137,6 @@
   }
 
   function updateDOM () {
-    document.querySelector('.image').src = imageURL;
     document.querySelector('.image').alt = imageDescription;
     document.querySelector(".image-tags").innerHTML = imageTags.join(" - ");
     document.querySelector(".youtube-link").innerHTML = '<i class="fa fa-fw fa-music" aria-hidden="true"></i> ' + songTitle;
