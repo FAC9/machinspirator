@@ -32,6 +32,7 @@ html, body {
   height: 120px;
   border-radius: 50%;
   padding: 5px;
+  margin-bottom: 3rem;
   opacity: 1;
   outline: none;
 }
@@ -40,15 +41,12 @@ html, body {
   opacity: 0.6;
 }
 
-.image-container {
-  margin: 2rem auto;
-  max-width: 90%;
-}
-
 .image {
   width: 100%;
   max-width:800px;
   max-height:600px;
+  margin: 2rem auto;
+  max-width: 90%;
 }
 
 .image-description {
