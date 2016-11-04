@@ -124,13 +124,11 @@
     confidenceIcon.classList.add('confidence-icon');
     confidenceIcon.classList.add(imageConfidence < 0.4 ? 'red' : imageConfidence < 0.7 ? 'orange' : 'green');
     document.querySelector(".image-description").innerHTML = confidenceIcon.outerHTML + imageDescription;
-
   }
 
   function updateDOM () {
     document.querySelector('.image').alt = imageDescription;
     document.querySelector(".image-tags").innerHTML = imageTags.join(" - ");
-//    document.querySelector(".youtube-link").innerHTML = '<i class="fa fa-fw fa-music" aria-hidden="true"></i> ' + songTitle;
     var fontAwesomePlay = '<i class="fa fa-fw fa-music" aria-hidden="true"></i>';
     document.querySelector(".youtube-link").innerHTML = fontAwesomePlay + '<a href="' + songURL + '" target="_blank"> ' + songTitle + '</a>';
 
