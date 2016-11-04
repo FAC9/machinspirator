@@ -1,4 +1,5 @@
 (function () {
+  'use strict';
   var generateImageButton = document.querySelector('#generate-image-button');
   var loading = document.querySelector(".loading");
   var imageURL, imageDescription, imageTags, imageTagsFiltered, newURL, guardianNews, imageConfidence, callbacks, songTitle, songURL;
