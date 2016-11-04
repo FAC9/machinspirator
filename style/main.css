@@ -43,10 +43,10 @@ html, body {
 
 .image {
   width: 100%;
-  max-width:800px;
   max-height:600px;
   margin: 2rem auto;
   max-width: 90%;
+  object-fit: contain;
 }
 
 .image-description {
