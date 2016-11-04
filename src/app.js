@@ -1,9 +1,10 @@
 (function () {
+
   'use strict';
-  
+
   var generateImageButton = document.querySelector('#generate-image-button');
   var loading = document.querySelector(".loading");
-  var imageURL, imageDescription, imageTags, imageTagsFiltered, newURL, guardianNews, imageConfidence, callbacks, songTitle, songURL;
+  var imageURL, imageDescription, imageTags, imageTagsFiltered, newURL, guardianNews, imageConfidence, callbacks, tuneResponse, songTitle, songURL;
 
   generateImageButton.onclick = generateData;
 
@@ -52,7 +53,8 @@
 
   generateTune.onreadystatechange = function() {
     if (generateTune.readyState === 4 && generateTune.status == 200) {
-      songTitle = JSON.parse(generateTune.response).results[2].title;
+      tuneResponse = JSON.parse(generateTune.response).message.body.track_list[0];
+      songTitle = tuneResponse.track.artist_name + ' - ' + tuneResponse.track.track_name;
       songURL = "https://www.youtube.com/results?search_query=" + songTitle.replace(/[\s-]+/g,'+');
       callbacks--;
       if (callbacks === 0) {
@@ -63,8 +65,7 @@
 
   function getTune () {
     var selectedTag = imageTagsFiltered[Math.floor(Math.random() * imageTagsFiltered.length)];
-    console.log(selectedTag);
-    generateTune.open('GET', "https://api.discogs.com/database/search?track=" + selectedTag + "&key=" + discogsKey + "&secret=" + discogsSecret, true);
+    generateTune.open('GET', "https://crossorigin.me/https://api.musixmatch.com/ws/1.1/track.search?format=json&q_track=" + selectedTag + "&quorum_factor=1&apikey=" + musixmatchKey, true);
     generateTune.send();
   }
 
@@ -120,6 +121,7 @@
     confidenceIcon.classList.add('confidence-icon');
     confidenceIcon.classList.add(imageConfidence < 0.4 ? 'red' : imageConfidence < 0.7 ? 'orange' : 'green');
     document.querySelector(".image-description").innerHTML = confidenceIcon.outerHTML + imageDescription;
+
   }
 
   function updateDOM () {
@@ -127,8 +129,9 @@
     document.querySelector('.image').alt = imageDescription;
     document.querySelector(".image-tags").innerHTML = imageTags.join(" - ");
     document.querySelector(".youtube-link").innerHTML = '<i class="fa fa-fw fa-music" aria-hidden="true"></i> ' + songTitle;
-    var foontAwesomePlay = '<i class="fa fa-fw fa-music" aria-hidden="true"></i>';
-    document.querySelector(".youtube-link").innerHTML = foontAwesomePlay + '<a href="' + songURL + '" target="_blank"> ' + songTitle + '</a>';
+    var fontAwesomePlay = '<i class="fa fa-fw fa-music" aria-hidden="true"></i>';
+    document.querySelector(".youtube-link").innerHTML = fontAwesomePlay + '<a href="' + songURL + '" target="_blank"> ' + songTitle + '</a>';
+
     createConfidenceIcon();
   }
 
